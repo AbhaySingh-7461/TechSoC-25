@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <cctype> // for isalpha, isupper, islower
+#include <cctype>
 
 using namespace std;
 
