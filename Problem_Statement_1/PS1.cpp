@@ -1,60 +1,53 @@
-#include <iostream>
-#include <string>
-#include <cctype>
-
+# include <iostream>
 using namespace std;
 
-// Function to perform Caesar Cipher
-string caesarCipher(const string &text, int shift, bool encode) {
-    string result = "";
-
-    // If decoding, reverse the shift
-    if (!encode) {
-        shift = -shift;
-    }
-
-    for (char ch : text) {
-        if (isalpha(ch)) { // Only shift letters
-            char base = isupper(ch) ? 'A' : 'a';
-            result += char((ch - base + shift + 26) % 26 + base);
-        } else {
-            result += ch; // Leave non-letters unchanged
-        }
-    }
-
-    return result;
-}
-
 int main() {
-    int choice, shift;
-    string message;
+    int input;
+    cout << "======Caeser Cipher======" << endl;
+    cout << "To Encode a message : 1\n";
+    cout << "To Decode a message : 2\n";
+    cout << "Which one do you wish to use : ";
+    cin >> input;
+    cin.ignore();
 
-    cout << "===== Caesar Cipher =====\n";
-    cout << "1. Encode a message\n";
-    cout << "2. Decode a message\n";
-    cout << "Enter your choice: ";
-    cin >> choice;
+    if (input == 1 || input == 2) {
+        char ar[100];
+        cout << "Please enter the line: ";
+        cin.getline(ar , 100);
 
-    // Validate choice
-    if (choice != 1 && choice != 2) {
-        cout << "Invalid choice. Exiting...\n";
-        return 1;
+        if (input == 1 ) {
+            for (int i = 0; ar[i] != '\0'; i++) {
+                if (ar[i] >= ('x') && ar[i] <= 'z') {
+                    ar[i] -= 23;
+                } else if (ar[i] >= ('X') && ar[i] <= 'Z') {
+                    ar[i] -=23;
+                } else if (ar[i] >= 'a' && ar[i] < ('x')) {
+                    ar[i] += 3;
+                } else if (ar[i] >= 'A' && ar[i] < ('X')) {
+                    ar[i] += 3;
+                }
+                cout << ar[i];
+            }
+        }
+        else if (input == 2) {
+            for (int i = 0; ar[i] != '\0'; i++) {
+                if (ar[i] >= 'a' && ar[i] <= ('c')) {
+                    ar[i] += 23;
+                } else if (ar[i] >= 'A' && ar[i] <= ('C')) {
+                    ar[i] += 23;
+                } else if (ar[i] > ('c') && ar[i] <= 'z') {
+                    ar[i] -= 3;
+                } else if (ar[i] > ('C') && ar[i] <= 'Z') {
+                    ar[i] -= 3;
+                }
+                cout << "Result : " << ar[i];
+            }
+        }
+        else {
+        }
+    } else {
+        cout << "Error!" << endl;
     }
-
-    cout << "Enter shift amount (1-25): ";
-    cin >> shift;
-
-    // Keep shift in range
-    shift %= 26;
-
-    cin.ignore(); // Clear input buffer
-    cout << "Enter your message: ";
-    getline(cin, message);
-
-    bool encode = (choice == 1);
-    string output = caesarCipher(message, shift, encode);
-
-    cout << "\nResult: " << output << "\n";
 
     return 0;
 }
